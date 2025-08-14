@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "coffee-backend",
   "version": "1.0.0",
   "main": "index.js",
@@ -33,3 +34,35 @@
     "prisma": "^6.13.0"
   }
 }
+=======
+    "name": "eventhall-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon src/index.ts",
+        "prisma:generate": "npx prisma generate",
+        "prisma:migrate": "npx prisma migrate dev --name init"
+    },
+    "dependencies": {
+        "@prisma/client": "^6.13.0",
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.5",
+        "next": "^15.4.6",
+        "node.js": "^0.0.1-security",
+        "react": "^19.1.1",
+        "react-dom": "^19.1.1"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^6.0.0",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.3",
+        "@types/node": "^24.2.1",
+        "@types/react": "19.1.10",
+        "nodemon": "^3.1.10",
+        "prisma": "^6.13.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.2"
+    }
+}
+>>>>>>> 18d2958 (1)

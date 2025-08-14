@@ -9,11 +9,16 @@ datasource db {
 }
 
 model Venue {
+<<<<<<< HEAD
   id          Int      @id @default(autoincrement())
+=======
+  id          Int       @id @default(autoincrement())
+>>>>>>> 18d2958 (1)
   name        String
   description String?
   location    String
   capacity    Int
+<<<<<<< HEAD
   price       String
   images      String[]
 
@@ -37,15 +42,53 @@ enum Status {
   APPROVED
   REJECTED
 }
+=======
+  price       Float
+  rating      Int
+  amenities   Amenity[] @relation("VenueAmenities")
+  images      String[] // Cloudinary эсвэл бусад file storage URL-ууд
+  tags        String[]
+
+  // Эзэн
+  Super_Admin User @relation("Super_AdminVenues", fields: [Super_AdminId], references: [id])
+  Super_AdminId     Int
+
+  // Админ
+  admin   User @relation("AdminVenues", fields: [adminId], references: [id])
+  adminId Int
+
+  bookings  Booking[]
+  reviews   Review[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+
+// model EventType {
+//   id      Int     @id @default(autoincrement())
+//   name    String
+//   venue   Venue?  @relation(fields: [venueId], references: [id])
+//   venueId Int?
+// }
+>>>>>>> 18d2958 (1)
 
 model User {
   id       Int    @id @default(autoincrement())
   name     String
   email    String @unique
   password String
+<<<<<<< HEAD
   role     Role   @default(USER)
 
   venues      Venue[] @relation("OwnerVenues")
+=======
+  role     Role   @default(ADMIN)
+
+  // Эзэмшдэг venue-үүд
+  venues Venue[] @relation("Super_AdminVenues")
+
+  // Хянадаг venue-үүд
+>>>>>>> 18d2958 (1)
   adminVenues Venue[] @relation("AdminVenues")
 
   bookings  Booking[]
@@ -68,6 +111,7 @@ model Booking {
   updatedAt  DateTime      @updatedAt
 }
 
+<<<<<<< HEAD
 model Review {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [userId], references: [id])
@@ -81,6 +125,23 @@ model Review {
   isVerified Boolean  @default(false)
   comment    String?
   createdAt  DateTime @default(now())
+=======
+model Amenity {
+  id     Int     @id @default(autoincrement())
+  name   String
+  venues Venue[] @relation("VenueAmenities")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  venue     Venue    @relation(fields: [venueId], references: [id])
+  venueId   Int
+  rating    Int //1-5 star
+  comment   String?
+  createdAt DateTime @default(now())
+>>>>>>> 18d2958 (1)
 }
 
 enum BookingStatus {
