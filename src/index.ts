@@ -9,7 +9,7 @@ const port = 4200;
 app.use(express.json());
 app.use(cors());
 
-app.use("/user", userRouter);
+app.use("/api", userRouter);
 app.use("/venue",venueRouter)
 
 app.listen(port, async () => {

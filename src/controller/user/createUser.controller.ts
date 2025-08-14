@@ -7,26 +7,32 @@ const prisma = new PrismaClient();
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password, role } = req.body;
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Бүх талбарыг бөглөнө үү" });
+    }
+
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: "ийм мэйл бүртгэлтэй байна" });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    const finalRole = Object.values(Role).includes(role) ? role : Role.ADMIN;
 
     const user = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
-        role: role || Role.USER,
+        role: finalRole,
       },
     });
 
     res.status(201).json({ message: "User created successfully", user });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Create user error:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
