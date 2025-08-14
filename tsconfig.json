@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 18d2958 (1)
 {
   "compilerOptions": {
     "strict": true,
@@ -10,10 +6,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-<<<<<<< HEAD
-    "forceConsistentCasingInFileNames": true
-  }
-=======
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "dom",
@@ -35,5 +27,4 @@
   "exclude": [
     "node_modules"
   ]
->>>>>>> 18d2958 (1)
 }
