@@ -11,7 +11,7 @@ export const createUser = async (req: Request, res: Response) => {
       where: { email },
     });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(400).json({ message: "ийм мэйл бүртгэлтэй байна" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 

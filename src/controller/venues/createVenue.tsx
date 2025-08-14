@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { prisma } from "../../utils/prisma";
+import prisma from "../../utils/prisma";
+
 
 export default async function createVenue(req: Request, res: Response) {
   try {
