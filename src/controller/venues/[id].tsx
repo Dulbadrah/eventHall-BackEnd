@@ -1,10 +1,7 @@
-
 import { Request, Response } from "express";
 import prisma from "../../utils/prisma";
 
-
-
-export default async function Venue(req:Request , res:Response ) {
+export default async function Venue(req: Request, res: Response) {
   const { id } = req.query;
 
   if (req.method === "GET") {
@@ -12,18 +9,25 @@ export default async function Venue(req:Request , res:Response ) {
       const venue = await prisma.venue.findUnique({
         where: { id: Number(id) },
         include: {
-               // Эзэн
-          admin: true,      // Админ
-          amenities: true,  // Давуу талууд
+          // Эзэн
+          Super_Admin: true,      // Super Admin
+          admins: {               // Админууд (junction table)
+            include: { admin: true },
+          },
+          amenities: true,        // Давуу талууд
           bookings: {
             include: {
-              user: true,   // Захиалга хийсэн хүн
+              user: true,         // Захиалга хийсэн хүн
             },
           },
           reviews: {
             include: {
-              user: true,   // Сэтгэгдэл бичсэн хүн
+              user: true,         // Сэтгэгдэл бичсэн хүн
             },
+          },
+          images: true,            // Зургууд
+          tags: {                  // Tags
+            include: { tag: true },
           },
         },
       });
