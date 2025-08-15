@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, birthDate, phoneNumber, address } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "Бүх талбарыг бөглөнө үү" });
@@ -27,6 +27,9 @@ export const createUser = async (req: Request, res: Response) => {
         email,
         password: hashedPassword,
         role: finalRole,
+        birthDate,
+        phoneNumber,
+        address,
       },
     });
 

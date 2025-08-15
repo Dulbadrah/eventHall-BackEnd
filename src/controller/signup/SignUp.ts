@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 
 export const SignUp = async (req: Request, res: Response) => {
-  const { email, password, name } = req.body;
+  const { email, password, name, birthDate, phoneNumber, address } = req.body;
   
   const hashedPassword = await bcrypt.hash(password, 8)
   try {
@@ -13,6 +13,10 @@ export const SignUp = async (req: Request, res: Response) => {
             email,
             password: hashedPassword,
             name,
+            birthDate: new Date(birthDate),
+            phoneNumber,
+            address,
+
         }
       
     });
