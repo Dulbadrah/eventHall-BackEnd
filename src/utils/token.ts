@@ -9,6 +9,8 @@ type Payload = {
 };
 
 export const createAccessToken = (payload: Payload) => {
- 
-  return jwt.sign(payload, secret, { expiresIn: "1h" });
+  const hour = Math.floor(Date.now() / 1000) + 60 * 60;
+
+  const accessToken = jwt.sign({ exp: hour, payload }, secret);
+  return accessToken;
 };

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { createAccessToken } from "../../utils/token"; // таны токен үүсгэх функц
+import prisma from "../../utils/prisma";
 
-const prisma = new PrismaClient();
+
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
