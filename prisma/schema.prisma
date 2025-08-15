@@ -14,13 +14,8 @@ model User {
   email    String @unique
   password String
   role     Role   @default(ADMIN)
-
-  // Эзэмшдэг Venue-үүд
-  ownedVenues   Venue[]       @relation("Super_AdminVenues")
-  
-  // Admin хийж байгаа Venue-үүд
+  Super_AdminVenues   Venue[]       @relation("Super_AdminVenues")
   adminVenues   VenueAdmin[]
-  
   bookings  Booking[]
   reviews   Review[]
   createdAt DateTime @default(now())
@@ -35,19 +30,13 @@ model Venue {
   location    String
   capacity    Int
   price       Float
-  rating      Float?     // Computed from Reviews
+  rating      Float?    
   amenities   Amenity[]  @relation("VenueAmenities")
-  
   images      VenueImage[]
   tags        VenueTag[]
-
-  // Эзэн (Super Admin)
   Super_Admin User @relation("Super_AdminVenues", fields: [Super_AdminId], references: [id])
   Super_AdminId Int
-
-  // Admins (many-to-many through VenueAdmin)
   admins      VenueAdmin[]
-
   bookings    Booking[]
   reviews     Review[]
   createdAt   DateTime  @default(now())

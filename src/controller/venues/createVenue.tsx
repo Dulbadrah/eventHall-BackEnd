@@ -12,12 +12,15 @@ export default async function createVenue(req: Request, res: Response) {
       rating,
       amenities,
       images,
-      tags,
+      tagNames,
       Super_AdminId,
       adminIds, // олон админ ID-г массив-аар авах
     } = req.body;
 
-    // 1. Venue үүсгэх
+    const tags = await prisma.tag.findMany({
+      where: { name: { in: tagNames } },
+      select: { id: true },
+    });
     const newVenue = await prisma.venue.create({
       data: {
         name,
@@ -34,7 +37,11 @@ export default async function createVenue(req: Request, res: Response) {
           create: images?.map((url: string) => ({ url })) || [],
         },
         tags: {
-          create: tags?.map((tagId: number) => ({ tagId })) || [],
+          create: tags.map((tag) => ({
+            tag: {
+              connect: { id: tag.id }, // Tag-ийн id-г холбож өгнө
+            },
+          })),
         },
       },
       include: {
@@ -42,11 +49,10 @@ export default async function createVenue(req: Request, res: Response) {
         images: true,
         tags: { include: { tag: true } },
         Super_Admin: true,
-        admins: { include: { admin: true } }, // junction table-ын админ
+        admins: { include: { admin: true } },
       },
     });
 
-    // 2. Admins-г junction table-д холбох
     if (adminIds?.length) {
       await Promise.all(
         adminIds.map((adminId: number) =>
