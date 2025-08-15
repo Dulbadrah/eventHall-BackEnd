@@ -23,7 +23,7 @@ export default async function createVenue(req: Request, res: Response) {
     });
     const newVenue = await prisma.venue.create({
       data: {
-        name,
+        name, 
         description,
         location,
         capacity: Number(capacity),
